@@ -32,7 +32,7 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
 
         #Let the page load. Change this number based on your internet speed.
         #Or, wait until the webpage is loaded, instead of hardcoding it.
-        time.sleep(slp_time)
+        time.sleep(4)
 
         #Test for the "Sign Up" prompt and get rid of it.
         try:
@@ -43,10 +43,8 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
         time.sleep(.1)
 
         try:
-            driver.find_element_by_css_selector('[alt="Close"]').click() #clicking to the X.
-            print(' x out worked')
+            driver.find_element_by_class_name('ModalStyle__xBtn___29PT9').click() #clicking to the X.
         except NoSuchElementException:
-            print(' x out failed')
             pass
 
         
@@ -57,8 +55,9 @@ def get_jobs(keyword, num_jobs, verbose, path, slp_time):
             print("Progress: {}".format("" + str(len(jobs)) + "/" + str(num_jobs)))
             if len(jobs) >= num_jobs:
                 break
-
-            job_button.click()  #You might 
+   # job_button.click()  #You might 
+            driver.execute_script("arguments[0].click();", job_button)
+        
             time.sleep(1)
             collected_successfully = False
             
